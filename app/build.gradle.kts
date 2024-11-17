@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -72,7 +73,7 @@ android {
 
 dependencies {
     implementation("io.appwrite:sdk-for-android:6.0.0")
-    implementation("io.coil-kt.coil3:coil-compose:3.0.2")
+    implementation("io.coil-kt.coil3:coil:3.0.2")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.2")
     implementation("com.algolia:algoliasearch-client-kotlin:3.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
