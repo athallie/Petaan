@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.LOCATION_SERVICE
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -166,6 +167,12 @@ class HomepageFragment : Fragment() {
                                 val description = document.getString("description") ?: "No description"
                                 documentId = document.id
 
+                                map.cameraPosition = CameraPosition
+                                    .Builder()
+                                    .target(LatLng(latitude, longitude))
+                                    .zoom(19.0)
+                                    .build()
+
                                 binding?.apply {
                                     locationTitle.text = title
                                     locationDescription.text = description
@@ -204,6 +211,12 @@ class HomepageFragment : Fragment() {
                             .addOnFailureListener { e ->
                                 Log.w("Firestore", "Error deleting document", e)
                             }
+                        lifecycleScope.launch {
+                            val result = Utils().deleteAlgoliaIndex(documentId)
+                            val result1 = Storage(client).deleteFile(BuildConfig.APP_WRITE_BUCKET_ID, documentId)
+                            Log.d("DELETEALGOLIAINDEX", "$result")
+                            Log.d("DELETEIMAGEAPPWRITE", "$result1")
+                        }
                     }
 
                 }
