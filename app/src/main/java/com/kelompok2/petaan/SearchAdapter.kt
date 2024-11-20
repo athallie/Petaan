@@ -79,10 +79,4 @@ class SearchAdapter(private val dataset: MutableList<SearchItem>, private val on
     }
 
     override fun getItemCount(): Int = dataset.size
-
-    fun clear() {
-        val size = dataset.size
-        dataset.clear()
-        notifyItemRangeRemoved(0, size)
-    }
 }

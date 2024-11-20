@@ -2,6 +2,8 @@ package com.kelompok2.petaan
 
 import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.algolia.client.api.SearchClient
 import com.algolia.client.model.search.SearchParamsObject
@@ -38,17 +40,27 @@ class Utils {
         documentId: String,
         collection: CollectionReference,
         data: HashMap<String, Any>,
+        progressIndicator: ProgressBar?,
         onSuccessCallback: (() -> Unit)? = null,
         onFailedCallback: (() -> Unit)? = null
     ) {
+        if (progressIndicator != null) {
+            progressIndicator.visibility = View.VISIBLE
+        }
         collection.document(documentId)
             .set(data)
             .addOnSuccessListener { dr ->
+                if (progressIndicator != null) {
+                    progressIndicator.visibility = View.INVISIBLE
+                }
                 Log.d("Firebase", "$documentId added.")
                 Toast.makeText(context, "Report added!", Toast.LENGTH_SHORT).show()
                 onSuccessCallback?.invoke()
             }
             .addOnFailureListener { e ->
+                if (progressIndicator != null) {
+                    progressIndicator.visibility = View.INVISIBLE
+                }
                 Log.w("Firebase", "Error adding document", e)
                 Toast.makeText(context, "Failed to add report: $e", Toast.LENGTH_SHORT).show()
                 onFailedCallback?.invoke()

@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import coil3.load
 import coil3.request.allowHardware
 import coil3.request.crossfade
@@ -106,6 +107,10 @@ class AddROIFragment : Fragment() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
+        binding!!.addROITopAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding!!.saveAddReportButton.setOnClickListener { v ->
 
             val severityDropdown = binding!!.severityDropDown
@@ -143,6 +148,7 @@ class AddROIFragment : Fragment() {
                     imageId,
                     Firebase.firestore.collection("reports"),
                     report,
+                    binding!!.addRoiProgressIndicator,
                     { v.findNavController().navigate(R.id.homepageFragment) }
                 )
                 lifecycleScope.launch {

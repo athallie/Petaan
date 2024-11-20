@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.search.SearchView
 import com.kelompok2.petaan.databinding.FragmentSearchBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
@@ -50,9 +51,15 @@ class SearchFragment : Fragment() {
         }
         binding.searchView.editText.doOnTextChanged { text, _, _, _ ->
             if (text!!.isEmpty()) {
-                adapter.clear()
+                recyclerView.layoutManager = null
+                recyclerView.adapter = null
             } else {
+                if (recyclerView.layoutManager == null && recyclerView.adapter == null) {
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    recyclerView.adapter = adapter
+                }
                 lifecycleScope.launch {
+                    delay(500)
                     dataset = Utils().search(text.toString())
                     adapter.updateData(dataset)
                     Log.d("ALGOLIASEARCH", dataset.joinToString("\n"))
@@ -60,5 +67,5 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-    }
+      }
 }

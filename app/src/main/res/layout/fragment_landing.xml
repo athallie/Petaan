@@ -12,23 +12,49 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/welcomeTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="landingFragment"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginTop="104dp"
+            android:text="Welcome"
+            android:textColor="#4F378A"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/landingPageAnimation"
+            android:layout_width="match_parent"
+            android:layout_height="313dp"
+            app:lottie_rawRes="@raw/globe"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/welcomeTextView"
+            app:layout_constraintBottom_toTopOf="@id/landing_login_button"/>
+
         <Button
             android:id="@+id/landing_login_button"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintVertical_bias="0.625" />
+
         <Button
             android:id="@+id/landing_register_button"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Register"
-            app:layout_constraintTop_toBottomOf="@id/landing_login_button"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/landing_login_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
