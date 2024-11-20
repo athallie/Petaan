@@ -151,6 +151,7 @@ class AddROIFragment : Fragment() {
                     binding!!.addRoiProgressIndicator,
                     { v.findNavController().navigate(R.id.homepageFragment) }
                 )
+
                 lifecycleScope.launch {
                     Utils().indexRecordsToAlgolia(report, imageId)
                 }

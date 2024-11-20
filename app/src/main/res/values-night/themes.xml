@@ -12,4 +12,9 @@
         <item name="android:windowSplashScreenAnimationDuration" tools:ignore="NewApi">1000</item>
         <item name="android:windowSplashScreenBehavior" tools:ignore="NewApi">icon_preferred</item>
     </style>
+
+    <style name="ThemeOverlay.Petaan.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
+    </style>
 </resources>

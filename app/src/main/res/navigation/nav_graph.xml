@@ -18,6 +18,11 @@
             app:destination="@id/listViewFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/actionHomeFragmentToFullscreenImageFragment"
+            app:destination="@id/FullscreenImageFragment" />
+
         <argument
             android:name="imageId"
             app:argType="string"
@@ -51,5 +56,13 @@
         <action
             android:id="@+id/action_searchFragment_to_homepageFragment"
             app:destination="@id/homepageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FullscreenImageFragment"
+        android:name="com.kelompok2.petaan.FullscreenImageFragment"
+        android:label="FullscreenImageFragment">
+        <argument
+            android:name="fileId"
+            app:argType="string"/>
     </fragment>
 </navigation>

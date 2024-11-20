@@ -18,7 +18,6 @@ class LoginFragment : Fragment() {
 
     private var binding: FragmentLoginBinding? = null
     private lateinit var firebaseAuth: FirebaseAuth
-    private var isPasswordVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,27 +34,6 @@ class LoginFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         val binding = binding ?: return // biar binding ga null
-
-        // Set initial password transformation
-        binding.editPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-
-        // Setup password toggle
-        binding.passwordToggle.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-
-            // Toggle password visibility
-            if (isPasswordVisible) {
-                // Show password
-                binding.editPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                binding.passwordToggle.setImageResource(R.drawable.ic_eye_open)
-            } else {
-                // Hide password
-                binding.editPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                binding.passwordToggle.setImageResource(R.drawable.ic_eye_close)
-            }
-            // Maintain cursor position
-            binding.editPassword.setSelection(binding.editPassword.text.length)
-        }
 
         binding.loginButton.setOnClickListener {
             val email = binding.editEmail.text.toString()

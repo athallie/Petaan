@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="104dp"
             android:text="Welcome"
-            android:textColor="#4F378A"
+            android:textColor="?attr/colorPrimaryDark"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
