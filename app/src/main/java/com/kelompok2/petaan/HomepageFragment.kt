@@ -32,6 +32,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.firestore
 import com.kelompok2.petaan.databinding.FragmentHomepageBinding
@@ -58,6 +59,7 @@ class HomepageFragment : Fragment() {
     private lateinit var context: Context
     private lateinit var client: Client
     private var currentMarker: Marker? = null
+    private var markerList = mutableMapOf<String, Marker>()
     private var binding: FragmentHomepageBinding? = null
     private lateinit var mapView: MapView
     private var mapInstance: MapLibreMap? = null
@@ -109,7 +111,6 @@ class HomepageFragment : Fragment() {
         val locationInfo = binding!!.locationInfo
         locationInfo.visibility = View.GONE
         val locationImage = binding!!.locationImage
-
 
         mapView = binding!!.mapView
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -211,11 +212,22 @@ class HomepageFragment : Fragment() {
                             .addOnFailureListener { e ->
                                 Log.w("Firestore", "Error deleting document", e)
                             }
+                        val markersToDelete = mutableListOf<String>()
                         lifecycleScope.launch {
                             val result = Utils().deleteAlgoliaIndex(documentId)
                             val result1 = Storage(client).deleteFile(BuildConfig.APP_WRITE_BUCKET_ID, documentId)
                             Log.d("DELETEALGOLIAINDEX", "$result")
                             Log.d("DELETEIMAGEAPPWRITE", "$result1")
+                            markersToDelete.add(documentId)
+                        }.invokeOnCompletion {
+                            refreshMarkers(markersToDelete)
+                            Toast.makeText(requireContext(), "Report deleted.", Toast.LENGTH_SHORT).show()
+                            binding!!.locationInfo.visibility = View.GONE
+                            map.cameraPosition = CameraPosition
+                                .Builder()
+                                .target(LatLng(latitude, longitude))
+                                .zoom(10.0)
+                                .build()
                         }
                     }
 
@@ -237,25 +249,7 @@ class HomepageFragment : Fragment() {
 
         }
 
-        db.collection("reports").get().addOnSuccessListener { documents ->
-            documents.forEach { documentSnapshot ->
-                try {
-                    val latLng: GeoPoint? = documentSnapshot.getGeoPoint("location")
-                    mapView.getMapAsync { map ->
-                        map.addMarker(
-                            MarkerOptions().apply {
-                                title = documentSnapshot.get("subject") as String
-                                position = LatLng(latLng!!.latitude, latLng.longitude)
-                            }
-                        )
-                        currentMarker?.id = generateRandomLong()
-                    }
-
-                } catch (e: RuntimeException) {
-                    Log.d("FIRESTOREERROR", "$e")
-                }
-            }
-        }
+        getMarkers(db)
 
         // jika user dari searchFragment akan langsung mengarahkan ke marker tersebut
         if (findNavController().previousBackStackEntry?.destination?.id == R.id.searchFragment) {
@@ -345,6 +339,44 @@ class HomepageFragment : Fragment() {
 
     fun generateRandomLong(): Long {
         return Random.nextLong(0, 1000) // Generates a random Long
+    }
+
+    private fun getMarkers(db: FirebaseFirestore) {
+        db.collection("reports").get().addOnSuccessListener { documents ->
+            documents.forEach { documentSnapshot ->
+                try {
+                    val latLng: GeoPoint? = documentSnapshot.getGeoPoint("location")
+                    mapView.getMapAsync { map ->
+                        markerList.put(
+                            documentSnapshot.id,
+                            map.addMarker(
+                                MarkerOptions().apply {
+                                    title = documentSnapshot.get("subject") as String
+                                    position = LatLng(latLng!!.latitude, latLng.longitude)
+                                }
+                            )
+                        )
+                        currentMarker?.id = generateRandomLong()
+                    }
+
+                } catch (e: RuntimeException) {
+                    Log.d("FIRESTOREERROR", "$e")
+                }
+            }
+        }
+    }
+
+    private fun refreshMarkers(toDelete: MutableList<String>) {
+        mapView.getMapAsync { map ->
+            toDelete.forEach { id ->
+                markerList.keys.forEach { key ->
+                    if (id == key) {
+                        map.removeMarker(markerList[key] as Marker)
+                        markerList.remove(key)
+                    }
+                }
+            }
+        }
     }
 
     override fun onStart() {
