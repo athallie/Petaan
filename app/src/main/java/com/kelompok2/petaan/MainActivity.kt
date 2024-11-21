@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kelompok2.petaan.databinding.ActivityMainBinding
 import org.maplibre.android.MapLibre
+import org.maplibre.android.maps.MapView
 
 class MainActivity : AppCompatActivity() {
 //    requestForPermissionLauncher.launch(Manifest.permission.INTERNET)
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigation.visibility = View.VISIBLE
             }
         }
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
