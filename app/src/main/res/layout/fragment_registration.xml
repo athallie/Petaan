@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_shape"
-            android:hint="Password"
+            android:hint="password123"
             android:inputType="textPassword"
             android:padding="12dp"
             android:textColor="?attr/colorOnSurface"

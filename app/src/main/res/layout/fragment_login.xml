@@ -5,83 +5,103 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:layout_centerHorizontal="true"
-        android:textSize="32sp"
-        android:textColor="?attr/colorPrimary"
-        android:id="@+id/label"
-        android:layout_above="@id/login_linear_layout"
-        android:layout_marginBottom="40dp"/>
+    tools:context=".LoginFragment"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/login_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="40dp"
-        android:id="@+id/login_linear_layout"
-        android:layout_centerInParent="true">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
-
-        <EditText
-            android:id="@+id/editEmail"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_shape"
-            android:hint="athallie@gmail.com"
-            android:padding="12dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:paddingHorizontal="40dp">
 
-        <!-- Username Label and Input -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            <TextView
+                android:id="@+id/loginLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Login"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="32sp"
+                app:layout_constraintBottom_toTopOf="@+id/loginFieldsContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:layout_marginBottom="40dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editPasswordContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:endIconMode="password_toggle"
-            app:endIconDrawable="@drawable/password_toggle"
-            android:hint="Password"
-            android:textColorHint="@color/gray">
-            <EditText
-                android:id="@+id/editPassword"
+            <LinearLayout
+                android:id="@+id/loginFieldsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:background="@drawable/edit_shape"
-                android:textColor="?attr/colorOnSurface"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/loginButton"
+                app:layout_constraintTop_toBottomOf="@+id/loginLabel">
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/login_linear_layout"
-        android:text="Login"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_shape"
-        android:textColor="?attr/colorOnPrimary"
-        android:layout_marginTop="32dp"
-        android:layout_marginHorizontal="40dp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editEmailContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Email"
+                    android:textColorHint="@color/gray"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp">
+
+                    <EditText
+                        android:id="@+id/editEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Username Label and Input -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editPasswordContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textColorHint="@color/gray"
+                    app:endIconDrawable="@drawable/password_toggle"
+                    app:endIconMode="password_toggle"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp">
+
+                    <EditText
+                        android:id="@+id/editPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_shape"
+                android:text="Login"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginFieldsContainer" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </RelativeLayout>
