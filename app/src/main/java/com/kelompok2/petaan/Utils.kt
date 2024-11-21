@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.algolia.client.api.SearchClient
+import com.algolia.client.model.search.DeletedAtResponse
 import com.algolia.client.model.search.SearchParamsObject
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.GeoPoint
@@ -99,5 +100,9 @@ class Utils {
             list.add(searchItem)
         }
         return list
+    }
+
+    suspend fun deleteAlgoliaIndex(indexName: String): DeletedAtResponse {
+        return searchClient.deleteObject("reports_index", indexName)
     }
 }
