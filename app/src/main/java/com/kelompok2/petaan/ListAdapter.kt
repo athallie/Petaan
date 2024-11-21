@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.fallback
@@ -18,34 +18,30 @@ import io.appwrite.services.Storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
-class SearchAdapter(private val dataset: MutableList<SearchItem>, private val onItemClicked: (Int) -> Unit) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
-
+class ListAdapter(private val dataset: MutableList<SearchItem>, private val onItemClicked: (Int) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
+    private var isDelete = false
     private lateinit var context: Context
     private lateinit var client: Client
+    private var selectedItems = mutableListOf<String>()
 
     class ViewHolder(view: View, onItemClicked: (Int) -> Unit) : RecyclerView.ViewHolder(view) {
-        val container: ConstraintLayout
+        val container: RelativeLayout
         val subject: TextView
         val location: TextView
         val image: ImageView
+        val checkBox: CheckBox?
 
         init {
-            container = view.findViewById<ConstraintLayout>(R.id.search_item)
-            subject = view.findViewById<TextView>(R.id.search_result_subject)
-            location = view.findViewById<TextView>(R.id.search_result_location)
-            image = view.findViewById<ImageView>(R.id.search_result_image)
+            container = view.findViewById(R.id.listview_item)
+            subject = view.findViewById(R.id.listview_subject)
+            location = view.findViewById<TextView>(R.id.listview_location)
+            image = view.findViewById<ImageView>(R.id.listview_image)
+            checkBox = view.findViewById(R.id.deleteCheckbox)
             view.setOnClickListener {
                 onItemClicked(this.adapterPosition)
             }
         }
-    }
-
-    fun updateData(dataset: MutableList<SearchItem>) {
-        this.dataset.clear()
-        this.dataset.addAll(dataset)
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
@@ -53,7 +49,7 @@ class SearchAdapter(private val dataset: MutableList<SearchItem>, private val on
         viewType: Int
     ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.search_item, parent, false)
+            .inflate(R.layout.listview_item, parent, false)
         context = view.context
         client = AppWriteHelper().getClient(context)
         return ViewHolder(view) { position ->
@@ -61,7 +57,24 @@ class SearchAdapter(private val dataset: MutableList<SearchItem>, private val on
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ListAdapter.ViewHolder,
+        position: Int
+    ) {
+        if (isDelete) {
+            holder.checkBox?.visibility = View.VISIBLE
+            holder.checkBox?.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedItems.add(dataset[position].objectId)
+                } else {
+                    selectedItems.remove(dataset[position].objectId)
+                }
+            }
+            Log.d("ISDELETE", "TRUE")
+        } else {
+            holder.checkBox?.visibility = View.INVISIBLE
+            Log.d("ISDELETE", "FALSE")
+        }
         holder.subject.text = dataset[position].subject
         holder.location.text = dataset[position].location
         CoroutineScope(Dispatchers.IO).launch {
@@ -82,4 +95,18 @@ class SearchAdapter(private val dataset: MutableList<SearchItem>, private val on
     }
 
     override fun getItemCount(): Int = dataset.size
+
+    fun changeDeleteMode(): Boolean {
+        isDelete = !isDelete
+        return isDelete
+    }
+
+    fun getSelectedItems(): MutableList<String> {
+        return selectedItems
+    }
+
+    fun clearData() {
+        dataset.removeIf { it.objectId in selectedItems }
+        selectedItems = mutableListOf<String>()
+    }
 }
