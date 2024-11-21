@@ -251,8 +251,9 @@ class HomepageFragment : Fragment() {
 
         getMarkers(db)
 
-        // jika user dari searchFragment akan langsung mengarahkan ke marker tersebut
-        if (findNavController().previousBackStackEntry?.destination?.id == R.id.searchFragment) {
+        // searchFragment/listviewfragment -> marker yang ditekan
+        val previousFragment = findNavController().previousBackStackEntry?.destination?.id
+        if (previousFragment == R.id.searchFragment || previousFragment == R.id.listViewFragment) {
             val searchItemImageId = args.imageId
             db.collection("reports").document(searchItemImageId.toString())
                 .get()

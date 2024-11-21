@@ -62,11 +62,11 @@ class ListViewFragment : Fragment() {
                     location = "${location!!.latitude}, ${location.longitude}"
                 ))
             }
-            adapter = ListAdapter(dataset) { /*position ->
-                val action = SearchFragmentDirections.actionSearchFragmentToHomepageFragment(
+            adapter = ListAdapter(dataset) { position ->
+                val action = ListViewFragmentDirections.actionListViewFragmentToHomepageFragment(
                     dataset[position].objectId
                 )
-                findNavController().navigate(action)*/
+                findNavController().navigate(action)
             }
             recyclerView.adapter = adapter
             Log.d("ADAPTERCOUNT", "${adapter.itemCount}")

@@ -47,7 +47,11 @@
         android:id="@+id/listViewFragment"
         android:name="com.kelompok2.petaan.ListViewFragment"
         android:label="fragment_listview"
-        tools:layout="@layout/fragment_listview" />
+        tools:layout="@layout/fragment_listview" >
+        <action
+            android:id="@+id/action_listViewFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.kelompok2.petaan.SearchFragment"
