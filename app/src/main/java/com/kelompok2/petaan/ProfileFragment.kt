@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
             )
-//            requireActivity().finish()
+            requireActivity().finish()
         }
     }
 }

@@ -129,12 +129,6 @@ class HomepageFragment : Fragment() {
                             requireContext(),
                             style,
                         )
-                        .locationComponentOptions(
-                            LocationComponentOptions
-                                .builder(requireContext())
-                                .pulseEnabled(true)
-                                .build()
-                        )
                         .useDefaultLocationEngine(false)
                         .build()
                 )
@@ -219,7 +213,6 @@ class HomepageFragment : Fragment() {
                             Log.d("DELETEALGOLIAINDEX", "$result")
                             Log.d("DELETEIMAGEAPPWRITE", "$result1")
                             markersToDelete.add(documentId)
-                        }.invokeOnCompletion {
                             refreshMarkers(markersToDelete)
                             Toast.makeText(requireContext(), "Report deleted.", Toast.LENGTH_SHORT).show()
                             binding!!.locationInfo.visibility = View.GONE
@@ -233,7 +226,7 @@ class HomepageFragment : Fragment() {
 
                 }
                 locationImage.setOnClickListener {
-                    // Navigate using file ID
+                    // Navigate using file IDdd
                     val directions = HomepageFragmentDirections.actionHomeFragmentToFullscreenImageFragment(documentId)
                     findNavController().navigate(directions)
                 }
