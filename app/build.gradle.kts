@@ -76,6 +76,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.6.0")
     implementation("io.appwrite:sdk-for-android:6.0.0")
     implementation("io.coil-kt.coil3:coil:3.0.2")
+    implementation("io.coil-kt:coil:2.5.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.2")
     implementation("com.algolia:algoliasearch-client-kotlin:3.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
