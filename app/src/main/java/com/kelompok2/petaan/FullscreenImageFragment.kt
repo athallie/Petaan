@@ -18,6 +18,7 @@ import coil3.load
 import coil3.request.crossfade
 import coil3.request.fallback
 import coil3.request.placeholder
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kelompok2.petaan.databinding.FragmentFullscreenImageBinding
 import io.appwrite.Client
 import io.appwrite.exceptions.AppwriteException
@@ -33,6 +34,7 @@ class FullscreenImageFragment : Fragment() {
     private val args: FullscreenImageFragmentArgs by navArgs()
     private lateinit var client: Client
     private lateinit var context: Context
+    private var bottomNav: BottomNavigationView? = null
     private var binding: FragmentFullscreenImageBinding? = null
     private var imageUrl: String? = null
 
@@ -43,6 +45,7 @@ class FullscreenImageFragment : Fragment() {
     ): View? {
         binding = FragmentFullscreenImageBinding.inflate(layoutInflater, container, false)
         val view = binding!!.root
+        bottomNav = requireActivity().findViewById(R.id.bottom_navigation)
         context = view.context
         client = AppWriteHelper().getClient(context)
         return view
@@ -50,6 +53,10 @@ class FullscreenImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (bottomNav?.visibility == View.VISIBLE) {
+            bottomNav?.visibility = View.GONE
+        }
 
         // Inisialisasi ImageView dan Download Button
         val fullscreenImage = binding!!.fullscreenImage
@@ -85,6 +92,7 @@ class FullscreenImageFragment : Fragment() {
         // Handle close button
         closeButton.setOnClickListener {
             findNavController().navigateUp()
+            bottomNav?.visibility = View.VISIBLE
         }
 
         // Handle download button
