@@ -83,11 +83,11 @@ class ListViewFragment : Fragment() {
                 Log.d("DELETEMODE", "MAIN")
                 adapter?.notifyDataSetChanged()
                 if (isDelete == true) {
-                    bottomNav?.visibility = View.INVISIBLE
+                    bottomNav?.visibility = View.GONE
                     deleteButton?.visibility = View.VISIBLE
                 } else {
                     bottomNav?.visibility = View.VISIBLE
-                    deleteButton?.visibility = View.INVISIBLE
+                    deleteButton?.visibility = View.GONE
                 }
             }
             true
@@ -118,7 +118,7 @@ class ListViewFragment : Fragment() {
                 Toast.makeText(requireContext(), "Delete failed.", Toast.LENGTH_SHORT).show()
             } finally {
                 bottomNav?.visibility = View.VISIBLE
-                deleteButton!!.visibility = View.INVISIBLE
+                deleteButton!!.visibility = View.GONE
                 adapter?.clearData()
                 adapter?.changeDeleteMode()
                 adapter?.notifyDataSetChanged()

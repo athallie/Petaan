@@ -30,7 +30,7 @@
             android:defaultValue="@null" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_edit"
+        android:id="@+id/editProfileFragment"
         android:name="com.kelompok2.petaan.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile">
@@ -45,7 +45,7 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_fragment_edit"
-            app:destination="@id/fragment_edit" />
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addROIFragment"

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ProfileFragment"
     android:fitsSystemWindows="true">
 
@@ -23,18 +22,17 @@
             android:layout_height="wrap_content"
             app:title="Profile"
             app:titleCentered="true"
-            android:background="@color/white"
-            app:titleTextColor="@android:color/black"
-            app:menu="@menu/edit_menu"/>
+            android:background="?attr/colorSurface"
+            app:titleTextColor="?attr/colorPrimary"
+            app:menu="@menu/edit_menu"
+            android:paddingEnd="12dp"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/profileAvatar"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="160dp"
         android:layout_alignParentTop="true"
         android:layout_below="@id/ProfileTopBar_parent"
         android:layout_marginTop="140dp"
@@ -45,8 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/avatar"
-        android:padding="40dp"
+        android:layout_below="@id/profileAvatar"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="64dp"
         android:layout_marginTop="30dp">
 
         <!-- Name -->
@@ -55,17 +54,16 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="20dp" />
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:paddingBottom="20dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="24dp"/>
 
         <!-- Username -->
         <TextView
@@ -73,17 +71,16 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="20dp" />
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:paddingBottom="20dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="24dp" />
 
         <!-- Email -->
         <TextView
@@ -91,31 +88,27 @@
             android:layout_height="wrap_content"
             android:text="Email"
             android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="20dp" />
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:paddingBottom="20dp" />
-
-
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_info"
-        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#D32F2F"
+        android:backgroundTint="?attr/colorError"
         android:text="Logout"
-        android:textColor="#FFFFFF" />
+        android:textColor="?attr/colorOnError"/>
 
 
 </RelativeLayout>

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/avatar"
+                android:id="@+id/profileAvatar"
                 android:layout_width="91dp"
                 android:layout_height="91dp"
                 android:layout_centerHorizontal="true"
@@ -39,7 +39,7 @@
                 android:paddingTop="40dp"
                 android:paddingBottom="16dp"
                 android:id="@+id/registration_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/avatar"
+                app:layout_constraintTop_toBottomOf="@id/profileAvatar"
                 app:layout_constraintBottom_toTopOf="@id/registerButton">
 
                 <TextView

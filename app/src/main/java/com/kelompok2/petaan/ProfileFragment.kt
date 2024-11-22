@@ -54,7 +54,7 @@ class ProfileFragment : Fragment() {
             ProfileTopBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.action_edit_profile -> {
-                        findNavController().navigate(R.id.EditProfileFragment)  // Ganti dengan ID fragment yang sesuai di nav_graph
+                        findNavController().navigate(R.id.editProfileFragment)  // Ganti dengan ID fragment yang sesuai di nav_graph
                         true
                     }
                     else -> false

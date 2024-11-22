@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/EditProfileFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:fitsSystemWindows="true">
 
     <!-- AppBar -->
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/EditProfileTopBar_parent"
+        android:id="@+id/EditProfileTopBarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,135 +19,144 @@
             android:layout_height="wrap_content"
             app:title="Profile"
             app:titleCentered="true"
-            android:background="@color/white"
-            app:titleTextColor="@android:color/black" />
+            android:background="?attr/colorSurface"
+            app:titleTextColor="?attr/colorPrimary"
+            app:navigationIcon="@drawable/back_button_foreground"
+            app:navigationIconTint="?attr/colorPrimary"
+            android:paddingStart="-12dp"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Avatar -->
-    <ImageView
-        android:id="@+id/edit_avatar"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/EditProfileTopBar_parent"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/avatar" />
-
-    <LinearLayout
-        android:id="@+id/edit_profile_form"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/edit_avatar"
-        android:padding="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@id/EditProfileTopBarContainer">
 
-        <!-- Name -->
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="10dp" />
+            android:layout_height="wrap_content">
+            <!-- Avatar -->
+            <ImageView
+                android:id="@+id/edit_avatar"
+                android:layout_width="91dp"
+                android:layout_height="91dp"
+                android:src="@drawable/avatar"
+                app:layout_constraintBottom_toTopOf="@+id/edit_profile_form"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:layout_marginBottom="32dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_name"
+            <LinearLayout
+                android:id="@+id/edit_profile_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                />
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="64dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/save_button"
+                app:layout_constraintTop_toBottomOf="@+id/edit_avatar"
+                tools:layout_editor_absoluteX="32dp">
+                <!-- Name -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Name"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- Username -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="20dp" />
+                <!-- Username -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Username"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_username"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Email -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Email"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:inputType="textEmailAddress"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!-- Email -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="14sp"
-            android:textColor="#6A5ACD"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="20dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_profile_form"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="#6A5ACD"
-        android:text="Save"
-        android:textColor="#FFFFFF" />
+                android:layout_below="@id/edit_profile_form"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="32dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="Save"
+                android:textColor="?attr/colorSurface"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_form" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </RelativeLayout>
