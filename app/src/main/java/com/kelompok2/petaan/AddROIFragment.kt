@@ -19,6 +19,8 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -45,7 +47,6 @@ class AddROIFragment : Fragment() {
 
     private var binding: FragmentAddroiBinding? = null
     private lateinit var appWriteClient: Client
-    private lateinit var mimeType: String
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -186,6 +187,12 @@ class AddROIFragment : Fragment() {
                 }
             } else {
                 if (severityDropdown.text.toString().trim().isEmpty()) {
+                    val severityDropdownContainer = binding!!.severityDropDownContainer
+                    severityDropdown.doAfterTextChanged { _ ->
+                        severityDropdown.error = null
+                        severityDropdownContainer.isEndIconVisible = true
+                    }
+                    severityDropdownContainer.isEndIconVisible = false
                     severityDropdown.error = "This field is required."
                 }
                 if (subjectTextField.text.toString().trim().isEmpty()) {
@@ -195,6 +202,12 @@ class AddROIFragment : Fragment() {
                     descriptionTextField.error = "This field is required."
                 }
                 if (locationTextField.text.toString().trim().isEmpty()) {
+                    val locationTextFieldContainer = binding!!.locationTextFieldContainer
+                    locationTextField.doOnTextChanged { _, _, _, _ ->
+                        locationTextField.error = null
+                        locationTextFieldContainer.isEndIconVisible = true
+                    }
+                    locationTextFieldContainer.isEndIconVisible = false
                     locationTextField.error = "This field is required."
                 }
                 if (reportImageView.drawable == null) {
