@@ -5,124 +5,185 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/avatar"
-        android:layout_above="@+id/registration_linear_layout"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:paddingHorizontal="32dp"
-        android:paddingTop="40dp"
-        android:paddingBottom="16dp"
-        android:id="@+id/registration_linear_layout">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
-
-        <EditText
-            android:id="@+id/editTextName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_shape"
-            android:hint="Athallah N"
-            android:padding="12dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="wrap_content">
 
-        <!-- Username Label and Input -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="91dp"
+                android:layout_height="91dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/avatar"
+                android:layout_above="@+id/registration_linear_layout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/registration_linear_layout"
+                app:layout_constraintVertical_chainStyle="packed"/>
 
-        <EditText
-            android:id="@+id/editTextUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_shape"
-            android:hint="athallie"
-            android:padding="12dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:paddingHorizontal="32dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="16dp"
+                android:id="@+id/registration_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/avatar"
+                app:layout_constraintBottom_toTopOf="@id/registerButton">
 
-        <!-- Email Label and Input -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
 
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_shape"
-            android:hint="athallie@email.com"
-            android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextNameContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/gray"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
 
-        <!-- Password Label and Input -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+                    <EditText
+                        android:id="@+id/editTextName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Athallah N"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_shape"
-            android:hint="password123"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
+                <!-- Username Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextUsernameContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/gray"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
 
-    </LinearLayout>
+                    <EditText
+                        android:id="@+id/editTextUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="athallie"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/registration_linear_layout"
-        android:layout_marginHorizontal="32dp"
-        android:text="Register"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_shape"
-        android:textColor="?attr/colorOnPrimary"
-        />
+                <!-- Email Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextEmailContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/gray"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
 
+                    <EditText
+                        android:id="@+id/editTextEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="athallie@email.com"
+                        android:inputType="textEmailAddress"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextPasswordContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/gray"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/editTextPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="password123"
+                        android:inputType="textPassword"
+                        android:padding="16dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/registration_linear_layout"
+                android:layout_marginHorizontal="32dp"
+                android:text="Register"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_shape"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintTop_toBottomOf="@id/registration_linear_layout"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
