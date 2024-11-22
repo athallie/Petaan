@@ -1,10 +1,13 @@
 package com.kelompok2.petaan
 
 import android.app.DownloadManager
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil3.load
@@ -28,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.net.URLConnection
 
 class FullscreenImageFragment : Fragment() {
 
@@ -36,7 +41,7 @@ class FullscreenImageFragment : Fragment() {
     private lateinit var context: Context
     private var bottomNav: BottomNavigationView? = null
     private var binding: FragmentFullscreenImageBinding? = null
-    private var imageUrl: String? = null
+    private var image: ByteArray? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,9 +76,6 @@ class FullscreenImageFragment : Fragment() {
                     fileId = args.fileId
                 )
 
-                // Store the image URL for later use in download
-                imageUrl = fileView.toString()
-
                 withContext(Dispatchers.Main) {
                     fullscreenImage.load(fileView) {
                         crossfade(true)
@@ -97,50 +99,49 @@ class FullscreenImageFragment : Fragment() {
 
         // Handle download button
         downloadButton.setOnClickListener {
-            downloadImage()
+            lifecycleScope.launch {
+                saveImage(downloadImage())
+            }
         }
     }
 
-    private fun downloadImage() {
-        imageUrl?.let { url ->
-            try {
-                val downloadManager = ContextCompat.getSystemService(
-                    context,
-                    DownloadManager::class.java
-                ) as DownloadManager
+    private suspend fun downloadImage(): ByteArray {
+        val result = Storage(client).getFileDownload(
+            bucketId = BuildConfig.APP_WRITE_BUCKET_ID,
+            fileId = args.fileId
+        )
+        return result
+    }
 
-                // Generate a unique filename
-                val fileName = "petaan_image_${System.currentTimeMillis()}.jpg"
+    private fun saveImage(image: ByteArray) {
+        val resolver = requireContext().contentResolver
 
-                val request = DownloadManager.Request(Uri.parse(url))
-                    .setTitle("Downloading Image")
-                    .setDescription("Downloading image from Petaan")
-                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-                    .setAllowedOverMetered(true)
-                    .setAllowedOverRoaming(true)
+        val downloadCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Downloads.getContentUri(
+                MediaStore.VOLUME_EXTERNAL_PRIMARY
+            )
+        } else {
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        }
+        //TODO: WRITE FILE
+        val newImageDetails = ContentValues().apply {
+            put(MediaStore.Downloads.DISPLAY_NAME, args.fileId)
+            put(MediaStore.Downloads.MIME_TYPE, URLConnection.guessContentTypeFromStream(image.inputStream()))
+            put(MediaStore.Downloads.IS_PENDING, 1)
+        }
 
-                downloadManager.enqueue(request)
+        val newImageUri = resolver.insert(downloadCollection, newImageDetails)
 
-                Toast.makeText(
-                    context,
-                    "Download started. Check your Downloads folder.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } catch (e: Exception) {
-                Log.e("DOWNLOAD_ERROR", "Error downloading image", e)
-                Toast.makeText(
-                    context,
-                    "Failed to download image",
-                    Toast.LENGTH_SHORT
-                ).show()
+        if (newImageUri != null) {
+            resolver.openOutputStream(newImageUri).use { outputStream ->
+                outputStream?.write(image)
             }
-        } ?: run {
-            Toast.makeText(
-                context,
-                "Image URL not available",
-                Toast.LENGTH_SHORT
-            ).show()
+            newImageDetails.clear()
+            newImageDetails.put(MediaStore.Downloads.IS_PENDING, 0)
+            resolver.update(newImageUri, newImageDetails, null, null)
+            Log.d("SAVEDIMAGE", newImageUri.toString())
+        } else {
+            Log.d("SAVEDIMAGE", "URI NULL")
         }
     }
 
