@@ -1,19 +1,15 @@
 package com.kelompok2.petaan
 
-import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,7 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.net.URLConnection
 
 class FullscreenImageFragment : Fragment() {
@@ -41,7 +36,6 @@ class FullscreenImageFragment : Fragment() {
     private lateinit var context: Context
     private var bottomNav: BottomNavigationView? = null
     private var binding: FragmentFullscreenImageBinding? = null
-    private var image: ByteArray? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -123,7 +117,7 @@ class FullscreenImageFragment : Fragment() {
         } else {
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         }
-        //TODO: WRITE FILE
+
         val newImageDetails = ContentValues().apply {
             put(MediaStore.Downloads.DISPLAY_NAME, args.fileId)
             put(MediaStore.Downloads.MIME_TYPE, URLConnection.guessContentTypeFromStream(image.inputStream()))

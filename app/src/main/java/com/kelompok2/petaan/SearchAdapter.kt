@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +17,6 @@ import io.appwrite.services.Storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
 class SearchAdapter(private val dataset: MutableList<SearchItem>, private val onItemClicked: (Int) -> Unit) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 

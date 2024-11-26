@@ -14,9 +14,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.LOCATION_SERVICE
@@ -42,14 +39,12 @@ import io.appwrite.services.Storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.maplibre.android.MapLibre
 import org.maplibre.android.annotations.Marker
 import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.location.LocationComponent
 import org.maplibre.android.location.LocationComponentActivationOptions
-import org.maplibre.android.location.LocationComponentOptions
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
 import kotlin.random.Random
