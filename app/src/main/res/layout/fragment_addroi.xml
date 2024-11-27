@@ -193,10 +193,10 @@
                     android:id="@+id/locationTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"/>
-<!--                    android:focusable="false"
+                    android:textSize="12sp"
+                    android:focusable="false"
                     android:clickable="false"
-                    android:cursorVisible="false"-->
+                    android:cursorVisible="false"/>
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
