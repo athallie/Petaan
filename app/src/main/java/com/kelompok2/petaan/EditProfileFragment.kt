@@ -135,7 +135,6 @@ class EditProfileFragment : Fragment() {
             (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
             toolbar.setNavigationOnClickListener {
-
                 findNavController().navigateUp()
             }
         }

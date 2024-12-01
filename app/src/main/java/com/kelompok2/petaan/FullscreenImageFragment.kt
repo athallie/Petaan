@@ -115,7 +115,7 @@ class FullscreenImageFragment : Fragment() {
                 MediaStore.VOLUME_EXTERNAL_PRIMARY
             )
         } else {
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI
         }
 
         val newImageDetails = ContentValues().apply {
